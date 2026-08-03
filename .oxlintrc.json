@@ -1,0 +1,57 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": true
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "off",
+    "style": "off"
+  },
+  "plugins": ["import", "typescript", "oxc"],
+  "rules": {
+    "typescript/no-floating-promises": ["error", { "ignoreVoid": false }],
+    "typescript/no-misused-promises": "error",
+    "import/no-cycle": "error",
+    "no-restricted-properties": [
+      "error",
+      {
+        "object": "Math",
+        "property": "random",
+        "message": "研究結果に乱数を混入させない（必要なら seed 固定の生成器を src に置く）"
+      }
+    ],
+    "no-restricted-globals": [
+      "error",
+      {
+        "name": "Date",
+        "message": "研究結果に日時を混入させない（run メタデータの記録のみ disable コメントで明示許可）"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["test/**"],
+      "rules": {
+        "typescript/no-floating-promises": ["error", { "ignoreVoid": true }]
+      }
+    },
+    {
+      "files": ["src/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/scripts/**"],
+                "message": "src から scripts を import しない（依存は scripts → src の一方通行）"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
