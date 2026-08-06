@@ -13,25 +13,25 @@ Selakovic & Pradel (ICSE 2016) が手動で付与し「自動チェックは今�
 ステージ境界は論文が報告するファネルの段に一致させてある。
 
 ```
-97 issue ──[ prep ]──▶ 79 ──[ equiv ]──▶ 65 ──[ prune ]──▶ 45 ──[ cond ]──▶ 条件
+(before, after) ──[ prep ]──▶ ──[ equiv ]──▶ ──[ prune ]──▶ ──[ cond ]──▶ 条件
 ```
 
 | ステージ | 役割 | 出力 |
 |---|---|---|
-| `prep`  | 実行可能な形に整える | reach ラベル (`parseable` 〜 `observable`) |
+| `prep`  | 実行可能な形に整える | reach ラベル (`parseable` 〜 `observable`)。並びは順序尺度で、弱い段から強い段へ |
 | `equiv` | `before ≡ after` を確認 | `equal` / `not_equal` / `inconclusive` |
 | `prune` | 構造パターンを導出 | ワイルドカード付き AST パターン |
 | `cond`  | 適用条件を抽出 | T / NF / P / TF / V |
 
 各ステージは独立したプロセスで、前段の JSONL を読んで自分の JSONL を書く。
-結果ファイルの `status` を数えるだけでファネルの数字が出る。
+ファネルの数字は各段の結果を数えて出す。
 
 EMIC (入力限定等価確認器) は独立したステージではなく、`prune` と `cond` の内部で使う共通基盤。
 
 ## セットアップ
 
 ```sh
-mise install     # Node 24 / pnpm 11
+mise install     # Node 24.15.0 / pnpm 11
 pnpm install
 ```
 
@@ -49,6 +49,14 @@ pnpm fmt             # 整形 (src scripts test のみ)
 ```
 
 引数は取らない。入出力パスは各スクリプトに固定で書いてある。
+
+Node の版は EMIC の独立変数なので、`node scripts/prep.ts` と直接叩かない。
+PATH 上の別の Node が走りうる。`mise exec` は `mise.toml` を読んでから実行するため、
+シェルの状態に依存せず固定した版になる。
+
+```sh
+mise exec -- node --inspect scripts/prep.ts   # デバッグでフラグを渡すとき
+```
 
 ## ディレクトリ
 

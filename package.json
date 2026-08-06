@@ -12,10 +12,10 @@
     "fmt": "oxfmt src scripts test *.json"
   },
   "dependencies": {
-    "@babel/generator": "^7.29.8",
-    "@babel/parser": "^7.29.8",
-    "@babel/traverse": "^7.29.8",
-    "@babel/types": "^7.29.8"
+    "@babel/generator": "7.29.8",
+    "@babel/parser": "7.29.8",
+    "@babel/traverse": "7.29.8",
+    "@babel/types": "7.29.8"
   },
   "devDependencies": {
     "@types/babel__generator": "^7.27.0",

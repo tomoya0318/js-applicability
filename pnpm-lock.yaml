@@ -9,16 +9,16 @@ importers:
   .:
     dependencies:
       '@babel/generator':
-        specifier: ^7.29.8
+        specifier: 7.29.8
         version: 7.29.8
       '@babel/parser':
-        specifier: ^7.29.8
+        specifier: 7.29.8
         version: 7.29.8
       '@babel/traverse':
-        specifier: ^7.29.8
+        specifier: 7.29.8
         version: 7.29.8
       '@babel/types':
-        specifier: ^7.29.8
+        specifier: 7.29.8
         version: 7.29.8
     devDependencies:
       '@types/babel__generator':
