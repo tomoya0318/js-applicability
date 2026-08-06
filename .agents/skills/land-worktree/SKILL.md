@@ -12,19 +12,26 @@ PR を作らない運用。単独開発で CI が無いなら、PR 本文はコ�
 
 ## 中止する条件
 
-次のどれかなら、実行せず理由を伝えて止まる。
+次のどちらかなら、実行せず理由を伝えて止まる。
 
 - 未コミットの変更がある → `/commit` を案内する
 - main 側の worktree が clean でない
-- `tmp/NNNN_*/plan.md` があり、その節がコミットメッセージに入っていない
-  → plan を捨てる運用なので、入っていなければ捨てた時点で消える
 
-## main が先に進んでいたら rebase する
+## main を最新にして、必要なら rebase する
 
-`git fetch origin` して、`origin/main` が HEAD の祖先かを確認する。
-祖先なら次へ進む。祖先でなければ直系に戻す。
+先に main 側で origin を取り込む。main に merge commit を作らないので rebase を使う。
 
+    git fetch origin
     git rebase origin/main
+
+**判定は local `main` に対して行う。** マージ先が local `main` なので、
+`origin/main` に対して判定すると、local `main` が先に進んでいるときに誤判定する。
+
+    git merge-base --is-ancestor main HEAD
+
+真なら次へ進む。偽なら直系に戻す。
+
+    git rebase main
 
 `git rebase -i` はこの環境で使えないので、squash や並べ替えはしない。
 rebase がするのは付け替えだけで、コミットの粒度は `/commit` の時点で決まっている。
@@ -49,10 +56,10 @@ main 側で fast-forward マージして push する。
 
 ## 撤収する
 
-`tmp/` は持ち帰らない。plan と review は足場であり、残すものはコミットメッセージと
-追跡される文書に移してある（中止条件で確認済み）。
+`tmp/` は持ち帰らない。plan と review は足場である。
 
-worktree の外に置いた成果物があれば、先に追跡下へ入れる。
+**残したいものが `tmp/` と worktree の外にあれば、削除の前に追跡下へ入れる。**
+コミットメッセージと追跡される文書に移し終えたかは人間が判断する。
 
 削除は取り消しにくいので、実行前にユーザーへ確認する。
 
@@ -64,5 +71,7 @@ worktree の外に置いた成果物があれば、先に追跡下へ入れる�
 
 ## 報告
 
-main の HEAD、push の結果、削除した worktree とブランチを伝える。
+main の HEAD、削除した worktree とブランチを伝える。
+**push は local main の全体を publish するので、何が publish されたかを伝える。**
+着地させたブランチ以外のコミットが乗っていることがある。
 rebase したなら、その旨と DoD の再実行結果も伝える。
