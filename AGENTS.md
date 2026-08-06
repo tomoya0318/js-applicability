@@ -84,3 +84,6 @@ pnpm test    # corpus を流す e2e
 300 行未満、1 ファイルに保つ。`CLAUDE.md` は symlink。
 特定ディレクトリでしか意味を持たないルールは、そのディレクトリの `AGENTS.md` に置く (nearest-wins)。
 `.claude/rules/` は作らない — Codex が読まず、結局こちらにパス一覧を書くことになる。
+
+このリポジトリ限定の skill は `.agents/skills/<name>/` が正本で、`.claude/skills/<name>` は
+そこへの symlink を skill ごとに貼る。`CLAUDE.md` と同じ理由で、正本を 1 つに保つ。
