@@ -10,6 +10,10 @@ argument-hint: /land-worktree
 PR を作らない運用。単独開発で CI が無いなら、PR 本文はコミットメッセージの複製になる。
 決定の台帳は `git log`。
 
+**worktree 側で起動する。** 着地させる対象がそこにあり、未コミットの確認も worktree に対して行う。
+main 側の操作は `git -C <main のパス>` で外から行う。
+ただし worktree を削除する前には main 側へ移動する。自分が居るディレクトリを消すと cwd が失われる。
+
 ## 中止する条件
 
 次のどちらかなら、実行せず理由を伝えて止まる。
@@ -51,7 +55,9 @@ rebase がするのは付け替えだけで、コミットの粒度は `/commit`
 
 ## 着地させる
 
-`herdr worktree list --json` から main 側のパスと、この worktree の workspace id を引く。
+`herdr worktree list --json` から引く。
+main 側のパスは `source.repo_root`、この worktree の workspace id は
+自分のパスに一致する `worktrees[]` の `open_workspace_id`。
 
 着地済みでなければ、main 側で fast-forward マージする。
 
@@ -71,6 +77,7 @@ rebase がするのは付け替えだけで、コミットの粒度は `/commit`
 コミットメッセージと追跡される文書に移し終えたかは人間が判断する。
 
 削除は取り消しにくいので、実行前にユーザーへ確認する。
+worktree を消す前に main 側へ移動する。
 
     herdr worktree remove --workspace <id>
     git branch -d <branch>
