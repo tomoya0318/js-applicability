@@ -27,11 +27,17 @@ PR を作らない運用。単独開発で CI が無いなら、PR 本文はコ�
 **判定は local `main` に対して行う。** マージ先が local `main` なので、
 `origin/main` に対して判定すると、local `main` が先に進んでいるときに誤判定する。
 
-    git merge-base --is-ancestor main HEAD
+状態は 3 通りある。2 通りだと思って分岐を 1 つにすると、着地済みのブランチを
+rebase して main まで fast-forward させ、無関係なコミットを吸い込む。
 
-真なら次へ進む。偽なら直系に戻す。
+    git merge-base --is-ancestor HEAD main   # feature が main の祖先か
+    git merge-base --is-ancestor main HEAD   # main が feature の祖先か
 
-    git rebase main
+| 前者 | 後者 | 状態 | すること |
+|---|---|---|---|
+| 真 | — | 着地済み | マージしない。撤収へ進む |
+| 偽 | 真 | 直系 | `merge --ff-only` |
+| 偽 | 偽 | 分岐 | `git rebase main` してから `merge --ff-only` |
 
 `git rebase -i` はこの環境で使えないので、squash や並べ替えはしない。
 rebase がするのは付け替えだけで、コミットの粒度は `/commit` の時点で決まっている。
@@ -47,12 +53,15 @@ rebase がするのは付け替えだけで、コミットの粒度は `/commit`
 
 `herdr worktree list --json` から main 側のパスと、この worktree の workspace id を引く。
 
-main 側で fast-forward マージして push する。
+着地済みでなければ、main 側で fast-forward マージする。
 
     git merge --ff-only <branch>
-    git push origin main
 
 `--no-ff` を使わない。コミットを意図的に独立させてあるなら、まとめる単位を作ると粒度が潰れる。
+
+そのうえで push する。
+
+    git push origin main
 
 ## 撤収する
 
