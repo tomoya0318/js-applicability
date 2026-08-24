@@ -2,6 +2,7 @@ export const STATUSES = ["ok", "unsupported", "error"] as const;
 export type Status = (typeof STATUSES)[number];
 
 export const REACHES = [
+  "none",
   "parseable",
   "setup_resolved",
   "target_reached",
