@@ -23,7 +23,7 @@ Selakovic & Pradel (ICSE 2016) が手動で付与し「自動チェックは今�
 | `prune` | 構造パターンを導出 | ワイルドカード付き AST パターン |
 | `cond`  | 適用条件を抽出 | T / NF / P / TF / V |
 
-各ステージは独立したプロセスで、前段の JSONL を読んで自分の JSONL を書く。
+各ステージは独立したプロセスで、前段の JSON 配列を読んで自分の JSON 配列を書く。
 ファネルの数字は各段の結果を数えて出す。
 
 EMIC (入力限定等価確認器) は独立したステージではなく、`prune` と `cond` の内部で使う共通基盤。
@@ -38,7 +38,7 @@ mise trust && mise run setup
 ## コマンド
 
 ```sh
-pnpm stage:prep      # out/01-prep.summary.jsonl を書く
+pnpm stage:prep      # out/01-prep.summary.json を書く
 pnpm stage:equiv     # 以降 02, 03, 04
 pnpm stage:prune
 pnpm stage:cond
@@ -63,7 +63,7 @@ mise exec -- node --inspect scripts/prep.ts   # デバッグでフラグを渡�
 ```
 src/          純粋なロジック。副作用なし・パス知識なし
   types.ts      verdict / reach / status の唯一の定義
-  io.ts         JSONL の読み書き。行数不変と例外処理をここで強制
+  io.ts         JSON の読み書き。件数不変と例外処理をここで強制
   emic/         隔離実行と 4 オラクル観測 (共通基盤)
   prep/ prune/ cond/
 scripts/      ステージの実行ファイル。4 本のみ
@@ -80,7 +80,7 @@ experiments/  使い捨ての実験。<日付>-<名前>/ に REPORT.md と結果
 
 **e2e テストのみを書く。** ユニットテストと契約テストは書かない。
 
-`corpus/cases.jsonl` に「答えを人間が書いた」最小ケースを置き、実際に実行して照合する。
+`corpus/cases.json` に「答えを人間が書いた」最小ケースを置き、実際に実行して照合する。
 実データ 97 件はテストではなく実験であり、`pnpm test` には含めない。
 
 実データで見つけたバグは、最小合成ケースに落として corpus に追加する。

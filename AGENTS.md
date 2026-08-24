@@ -40,7 +40,7 @@
 ```
 src/        純粋なロジック。副作用なし・固定パスを知らない
   types.ts    verdict / reach / status の唯一の定義
-  io.ts       JSONL 読み書き。ステージ共通の不変条件をここで強制する
+  io.ts       JSON 読み書き。ステージ共通の不変条件をここで強制する
   emic/       隔離実行と 4 オラクル観測 (prune と cond が内部で使う共通基盤)
   prep/ prune/ cond/
 scripts/    ステージの実行ファイル → scripts/AGENTS.md
@@ -66,7 +66,7 @@ pnpm test    # corpus を流す e2e
 ## コードを読んでも分からないこと
 
 - **Node のバージョンは EMIC の独立変数。** 実行環境が変わると等価判定の結果が変わる
-  (Node 22 と 24 で結果が変わった前例がある)。**結果 JSONL に必ず記録する。** 版は `mise.toml` だけで指定する
+  (Node 22 と 24 で結果が変わった前例がある)。**結果 JSON に必ず記録する。** 版は `mise.toml` だけで指定する
 - **`Math.random` と `Date` を lint で禁止しているのは、実行結果が論文の数字になるため。**
   run メタデータの記録だけ disable コメントで明示的に許可する
 - コメントは「なぜそうしたか」だけ書く。`jsdoc` は oxfmt / oxlint の両方で意図的に無効にしてある。

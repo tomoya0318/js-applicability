@@ -17,7 +17,7 @@ mise trust && mise run setup
 
 - この変更は EMIC の 4 オラクル観測のどの段階に影響するか（prep / equiv / prune / cond のどこか）
 - 対応外の入力を `unsupported` / `inconclusive` として返しているか。fallback を書いていないか
-- 実行環境（Node のバージョン）が結果に影響する変更か。影響するなら結果 JSONL に記録されるか
+- 実行環境（Node のバージョン）が結果に影響する変更か。影響するなら結果 JSON に記録されるか
 
 ## 作業 dir
 tmp/

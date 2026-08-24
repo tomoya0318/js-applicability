@@ -3,8 +3,7 @@ out/
 tmp/
 
 # 実験の生データは追跡しない（REPORT.md と scripts と summary だけ残す）
-experiments/**/*.jsonl
-experiments/**/*.ndjson
+experiments/**/*.json
 !experiments/**/*summary*.json
 
 .DS_Store
