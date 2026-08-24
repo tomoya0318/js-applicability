@@ -32,7 +32,7 @@ EMIC (入力限定等価確認器) は独立したステージではなく、`pr
 
 ```sh
 mise install     # Node 24.15.0 / pnpm 11
-pnpm install
+mise trust && mise run setup
 ```
 
 ## コマンド
@@ -68,6 +68,7 @@ src/          純粋なロジック。副作用なし・パス知識なし
   prep/ prune/ cond/
 scripts/      ステージの実行ファイル。4 本のみ
 corpus/       答え付きの合成テストケース
+data/         原データ (submodule)
 test/         e2e テスト
 out/          生成物 (git 管理外)
 experiments/  使い捨ての実験。<日付>-<名前>/ に REPORT.md と結果

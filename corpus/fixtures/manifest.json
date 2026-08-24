@@ -1,0 +1,87 @@
+{
+  "dataset": "selakovic-2016-issues",
+  "commit": "94e969e159f88f6ea61c17929e932d11f8dd930b",
+  "root": "data/selakovic-2016-issues",
+  "issues": [
+    {
+      "id": "issue_7012",
+      "pattern": "P1",
+      "source": "clientIssues/AngularIssues/issues/issue_7012"
+    },
+    {
+      "id": "issue_7759_3",
+      "pattern": "P1",
+      "source": "clientIssues/AngularIssues/issues/issue_7759_3"
+    },
+    {
+      "id": "issue_11338",
+      "pattern": "P1",
+      "source": "clientIssues/EmberIssues/issues/issue_11338"
+    },
+    {
+      "id": "issue_1222",
+      "pattern": "P1",
+      "source": "clientServerIssues/UnderscoreIssues/issues/issue_1222"
+    },
+    {
+      "id": "issue_1223",
+      "pattern": "P1",
+      "source": "clientServerIssues/UnderscoreIssues/issues/issue_1223"
+    },
+    {
+      "id": "issue_1224",
+      "pattern": "P1",
+      "source": "clientServerIssues/UnderscoreIssues/issues/issue_1224"
+    },
+    {
+      "id": "issue_136b",
+      "pattern": "P2",
+      "source": "clientServerIssues/EjsIssues/issues/issue_136b"
+    },
+    {
+      "id": "issue_347_1",
+      "pattern": "P3",
+      "source": "clientServerIssues/Underscore.stringIssues/issues/issue_347_1"
+    },
+    {
+      "id": "issue_4457",
+      "pattern": "P4",
+      "source": "clientIssues/AngularIssues/issues/issue_4457"
+    },
+    {
+      "id": "issue_5457",
+      "pattern": "P5",
+      "source": "clientIssues/AngularIssues/issues/issue_5457"
+    },
+    {
+      "id": "issue_39",
+      "pattern": "P6",
+      "source": "clientServerIssues/UnderscoreIssues/issues/issue_39"
+    },
+    {
+      "id": "issue_7735",
+      "pattern": "P7",
+      "source": "clientIssues/AngularIssues/issues/issue_7735"
+    },
+    {
+      "id": "issue_701",
+      "pattern": "P7",
+      "source": "serverIssues/MochaIssues/issues/issue_701"
+    },
+    {
+      "id": "issue_4359",
+      "pattern": "P8",
+      "source": "clientIssues/AngularIssues/issues/issue_4359"
+    },
+    {
+      "id": "issue_28",
+      "pattern": "P9",
+      "source": "serverIssues/ChalkIssues/issues/issue_28"
+    },
+    {
+      "id": "issue_27a",
+      "pattern": "P10",
+      "source": "serverIssues/ChalkIssues/issues/issue_27a"
+    }
+  ]
+}

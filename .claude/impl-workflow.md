@@ -5,7 +5,7 @@
 - test: pnpm test
 
 ## worktree セットアップコマンド
-mise trust && pnpm install
+mise trust && mise run setup
 
 ## レビュー重点領域
 - 未決定の扱い: 設定項目・フラグ・strategy への抽象化や fallback の追加を差分に持ち込んでいないか。

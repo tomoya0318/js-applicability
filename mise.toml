@@ -1,3 +1,9 @@
 [tools]
 node = "24.15.0"
 pnpm = "11"
+
+[tasks.setup]
+run = [
+  "pnpm install",
+  "git submodule update --init",
+]
