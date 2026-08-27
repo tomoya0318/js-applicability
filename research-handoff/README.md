@@ -10,7 +10,6 @@
 |---|---|
 | `preprocessing-scope.md`の実行可能性・圧縮・評価する指標 | `src/prep/AGENTS.md` |
 | `preprocessing-scope.md`の実行環境の扱い（CommonJS初期プロファイル） | `src/emic/AGENTS.md` |
-| `dataset-scope.md` | `corpus/README.md` |
 | `blocking-decisions.md`の未決定一覧 | 最後まで残す。行き先は別途決める |
 
 全節の移設後に、このディレクトリと`AGENTS.md`の地図の該当行を削除します。
@@ -23,7 +22,6 @@
 | 文書 | 役割 |
 |---|---|
 | [README.md](README.md) | 文書群のスコープと読み方を示す索引 |
-| [dataset-scope.md](dataset-scope.md) | 評価データの二本柱方針（10パターン16issue=正確性 / 残り81issue=拡張性） |
 | [preprocessing-scope.md](preprocessing-scope.md) | 前処理の要件、候補方針、評価指標、実行環境の契約 |
 | [blocking-decisions.md](blocking-decisions.md) | 着手前に決める必要がある事項。未決定事項のカテゴリ別一覧と、`my-research/open-questions.md`に正本がある着手ブロッカーの参照 |
 

@@ -1,4 +1,4 @@
-# データセット方針
+# corpus — 評価データの方針
 
 > **2026-07 教授MTGでの更新**: 評価データを二本柱に再編しました。
 > 10パターンに紐づく16issueで生成手法の正確性を語り、残り81issue（パターン外の個別最適化）で拡張性を語ります。
@@ -62,14 +62,14 @@ issueのIDは、分類表で使われている論理IDと、データセット�
 - 条件GT（T/NF/P/TF/Vラベル）を持たないため、**正誤（precision / recall）は測りません**。
 - 測るのは適用可能性です: 前処理通過、等価判定通過、枝切り通過、条件抽出が出力を出せたか、`inconclusive`率。
 - 現行集計の下地: 97issue → 前処理通過79 → 等価判定通過65 → 枝切り通過45。パターン外81issueのうち枝切り通過は34です（[current.md「評価データの二本柱」](../current.md#評価データの二本柱)）。
-- 失敗・非対応は隠さず、`unsupported` / `inconclusive`として段階別に計上します。実行プロファイル（CommonJS限定）が拡張性のカバレッジ上限を決めるため、非対応の内訳も報告します（[preprocessing-scope.md「実行環境の扱い」](preprocessing-scope.md#実行環境の扱い)）。
+- 失敗・非対応は隠さず、`unsupported` / `inconclusive`として段階別に計上します。実行プロファイル（CommonJS限定）が拡張性のカバレッジ上限を決めるため、非対応の内訳も報告します（[preprocessing-scope.md「実行環境の扱い」](../research-handoff/preprocessing-scope.md#実行環境の扱い)）。
 
 通過率の集計に加えて、81issueに対して次の2つの分析を行います。
 
 1. **クラスタリング**: 81issueをクラスタリングし、件数の多いクラスタを論文中で個別に議論します。クラスタリングの方法（特徴量・アルゴリズム・クラスタ数の決め方）は教授と要相談です。
 2. **既知パターンのラッピング検証**: 81issueのうち、既知10パターンを内部に含む（ラッピングしている）ものがどれだけあるかを検証します。ラッピングの判定基準は未決定です。
 
-拡張性評価の未決定事項は、[blocking-decisions.md](blocking-decisions.md)に集約します。
+拡張性評価の未決定事項は、[blocking-decisions.md](../research-handoff/blocking-decisions.md)に集約します。
 
 ## 正確性評価を16issueに限定する理由
 
@@ -105,7 +105,7 @@ Selakovic外の小規模OSSから、主対象と同じパターンに対応し�
 
 ## 未決定事項
 
-データセットに関する未決定事項は、[blocking-decisions.md](blocking-decisions.md)に集約します。
+データセットに関する未決定事項は、[blocking-decisions.md](../research-handoff/blocking-decisions.md)に集約します。
 
 ## 自作ケースのGT
 
