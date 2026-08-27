@@ -1,0 +1,19 @@
+[
+  {
+    "id": "issue_1222",
+    "profile": "commonjs",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_before.js が exports.init / setupTest / test を持つ。underscore_before.js は document を参照せず、node だけで読み込める",
+      "reach": "test() が _.values(map) を 1000 回呼び、戻り値の配列を観測できる。setup は 100 プロパティのオブジェクトで、外部依存もネットワークもない",
+      "verdict": "変更は _.values の実装のみ。before は for-in と _.has の組、after は _.keys と添字 for で、どちらも自身のプロパティだけを列挙する。node で両側を実行し、100 要素が同じ順で返ることを確認した"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_1222",
+      "pattern": "P1",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientServerIssues/UnderscoreIssues/issues/issue_1222"
+    }
+  }
+]

@@ -2,11 +2,20 @@
   "dataset": "selakovic-2016-issues",
   "commit": "94e969e159f88f6ea61c17929e932d11f8dd930b",
   "root": "data/selakovic-2016-issues",
+  "patternDefinition": "corpus/README.md",
   "issues": [
     {
       "id": "issue_7012",
       "pattern": "P1",
-      "source": "clientIssues/AngularIssues/issues/issue_7012"
+      "source": "clientIssues/AngularIssues/issues/issue_7012",
+      "fixture": "corpus/fixtures/issue_7012",
+      "copied": [
+        "angular_before.js",
+        "angular_after.js",
+        "v_before.html",
+        "v_after.html"
+      ],
+      "note": "v_*.html が参照する ../../js/execute.js と CDN 上の jstat / jQuery は複製していない。いずれも所要時間の測定と結果送信のためのもので、EMIC の実行経路に入らない。"
     },
     {
       "id": "issue_7759_3",
@@ -21,7 +30,17 @@
     {
       "id": "issue_1222",
       "pattern": "P1",
-      "source": "clientServerIssues/UnderscoreIssues/issues/issue_1222"
+      "source": "clientServerIssues/UnderscoreIssues/issues/issue_1222",
+      "fixture": "corpus/fixtures/issue_1222",
+      "copied": [
+        "underscore_before.js",
+        "underscore_after.js",
+        "test_case_before.js",
+        "test_case_after.js",
+        "v_before.html",
+        "v_after.html"
+      ],
+      "note": "v_*.html が参照する ../../js/execute.js と CDN 上の jstat / jQuery は複製していない。いずれも所要時間の測定と結果送信のためのもので、EMIC の実行経路に入らない。"
     },
     {
       "id": "issue_1223",

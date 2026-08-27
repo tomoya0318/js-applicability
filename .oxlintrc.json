@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": ["data/"],
+  "ignorePatterns": ["data/", "corpus/fixtures/"],
   "options": {
     "typeAware": true
   },
