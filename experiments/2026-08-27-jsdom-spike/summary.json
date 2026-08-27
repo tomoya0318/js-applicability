@@ -1,0 +1,121 @@
+{
+  "node": "v24.15.0",
+  "jsdom": "30.0.1",
+  "options": {
+    "runScripts": "dangerously",
+    "resources": "default (external resources not loaded)",
+    "url": "default"
+  },
+  "results": [
+    {
+      "issue": "issue_1222",
+      "variant": "before",
+      "sutEvaluated": true,
+      "sutLoaded": true,
+      "executeStubCalled": 1,
+      "workloadAttempted": true,
+      "workloadCalled": true,
+      "returnExtracted": true,
+      "workloadReturn": {
+        "type": "undefined"
+      },
+      "observation": {
+        "operation": "_.values(map)",
+        "length": 100,
+        "values": {
+          "head": [
+            0,
+            1,
+            2
+          ],
+          "tail": [
+            97,
+            98,
+            99
+          ]
+        }
+      },
+      "errors": [],
+      "status": "success"
+    },
+    {
+      "issue": "issue_1222",
+      "variant": "after",
+      "sutEvaluated": true,
+      "sutLoaded": true,
+      "executeStubCalled": 1,
+      "workloadAttempted": true,
+      "workloadCalled": true,
+      "returnExtracted": true,
+      "workloadReturn": {
+        "type": "undefined"
+      },
+      "observation": {
+        "operation": "_.values(map)",
+        "length": 100,
+        "values": {
+          "head": [
+            0,
+            1,
+            2
+          ],
+          "tail": [
+            97,
+            98,
+            99
+          ]
+        }
+      },
+      "errors": [],
+      "status": "success"
+    },
+    {
+      "issue": "issue_7012",
+      "variant": "before",
+      "sutEvaluated": true,
+      "sutLoaded": true,
+      "executeStubCalled": 1,
+      "workloadAttempted": true,
+      "workloadCalled": true,
+      "returnExtracted": true,
+      "workloadReturn": {
+        "type": "undefined"
+      },
+      "observation": {
+        "operation": "f1 (captured from execute)",
+        "return": {
+          "type": "object",
+          "value": {
+            "type": "undefined"
+          }
+        }
+      },
+      "errors": [],
+      "status": "success"
+    },
+    {
+      "issue": "issue_7012",
+      "variant": "after",
+      "sutEvaluated": true,
+      "sutLoaded": true,
+      "executeStubCalled": 1,
+      "workloadAttempted": true,
+      "workloadCalled": true,
+      "returnExtracted": true,
+      "workloadReturn": {
+        "type": "undefined"
+      },
+      "observation": {
+        "operation": "f1 (captured from execute)",
+        "return": {
+          "type": "object",
+          "value": {
+            "type": "undefined"
+          }
+        }
+      },
+      "errors": [],
+      "status": "success"
+    }
+  ]
+}

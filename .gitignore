@@ -5,6 +5,7 @@ tmp/
 # 実験の生データは追跡しない（REPORT.md と scripts と summary だけ残す）
 experiments/**/*.json
 !experiments/**/*summary*.json
+!experiments/**/package.json
 
 .DS_Store
 *.log

@@ -15,5 +15,22 @@
       "patternDefinition": "corpus/README.md",
       "upstream": "data/selakovic-2016-issues/clientServerIssues/UnderscoreIssues/issues/issue_1222"
     }
+  },
+  {
+    "id": "issue_7012",
+    "profile": "browser",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js を持たず v_*.html だけがある。angular_before.js は window を 105 箇所参照し、Node では ReferenceError になる。jsdom で読み込めることを experiments/2026-08-27-jsdom-spike で確認した",
+      "reach": "workload は sortedKeys(obj) を 1000 回呼ぶが、sortedKeys は keys.sort() の結果を返さず捨てる。プローブ挿入で関数内の keys を観測する前提で observable とする。プローブ挿入は未実装なので、現時点の実行は workload_executed で止まる",
+      "verdict": "観測対象は v_*.html のインラインに定義された sortedKeys。before は for-in と hasOwnProperty、after は Object.keys で、どちらも自身のプロパティだけを同じ順に並べる。同じ変更は angular_*.js 内部の同名関数にも現れる"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_7012",
+      "pattern": "P1",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientIssues/AngularIssues/issues/issue_7012"
+    }
   }
 ]

@@ -1,0 +1,11 @@
+{
+  "name": "jsdom-runtime-spike",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "node run.mjs"
+  },
+  "dependencies": {
+    "jsdom": "30.0.1"
+  }
+}
