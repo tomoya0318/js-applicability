@@ -6,4 +6,5 @@ pnpm = "11"
 run = [
   "pnpm install",
   "git submodule update --init",
+  "for dir in corpus/fixtures/*/; do if [ -f \"$dir/pnpm-lock.yaml\" ]; then pnpm --dir \"$dir\" install --frozen-lockfile; fi; done",
 ]

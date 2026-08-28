@@ -1,0 +1,13 @@
+{
+  "name": "selakovic-vendor-chalk-28",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Vendor deps for Selakovic 2016 issue ChalkIssues/issue_28 (chalk@0.4.0 SUT — version conflict with 27a/27b)",
+  "dependencies": {
+    "ansi-styles": "1.1.0",
+    "escape-string-regexp": "1.0.5",
+    "has-ansi": "0.1.0",
+    "strip-ansi": "0.3.0",
+    "supports-color": "0.2.0"
+  }
+}

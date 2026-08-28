@@ -43,6 +43,32 @@ issueのIDは、分類表で使われている論理IDと、データセット�
 
 件数はP1が6件、P7が2件、その他の8パターンが各1件で、合計16件です。
 
+### 各パターンの前提条件
+
+自動適用に必要な前提条件は、原論文の Table 4 が定めています。
+出典は `ai-research-workspace/raw/papers/selakovic2016perf.pdf` の Table 4 です。
+条件抽出（RQ1）の正解ラベルはこの表です。
+
+T = Type check、NF = Native function is not overridden、P = Prototype is not overridden、
+TF = Function from third-party library is not overridden、V = Check on value of an expression。
+
+| パターン | T | NF | P | TF | V |
+|---|:-:|:-:|:-:|:-:|:-:|
+| P1 | 要 | 要 | 要 | — | — |
+| P2 | 要 | — | 要 | — | — |
+| P3 | — | 要 | — | 要 | — |
+| P4 | 要 | — | — | 要 | — |
+| P5 | 要 | 要 | 要 | — | — |
+| P6 | 要 | 要 | 要 | — | — |
+| P7 | — | 要 | 要 | — | 要 |
+| P8 | 要 | — | — | — | — |
+| P9 | 要 | 要 | 要 | — | — |
+| P10 | 要 | — | 要 | — | — |
+
+論文本文が2箇所で個別に補足しています。
+P4は`html()`と`empty()`がjQueryの関数であることを要求します（TF）。
+P7は`toString`が`Object.prototype.toString()`を指すことを要求します（V）。
+
 ### 境界例として別管理するissue
 
 次のissueは10パターンに近いものの、現在の対応表では主評価の16issueに含めていません。
@@ -54,6 +80,20 @@ issueのIDは、分類表で使われている論理IDと、データセット�
 
 これらは正確性の16issueへ追加せず、境界例として別管理します。
 16issue側・81issue側のどちらに帰属させるかは未決定です（→ 未決定事項）。
+
+### パターンの帰属が原文の定義と食い違うissue
+
+`clientIssues/AngularIssues/issues/issue_7735`をP7に割り当てていますが、原文の定義と一致しません。
+原文のPattern 7は「`toString()`による型判定の代わりに`instanceof`演算子を選ぶ」と定義し、
+例も`err instanceof Error || toString.call(err) === "[object Error]"`です。
+一方この issue の変換は`toString.call(value) === '[object Array]'`から`Array.isArray`への置き換えで、
+`instanceof`を使いません。共通するのは「`toString.call`による型判定をより速い組み込みへ置き換える」点だけです。
+
+同じP7の`serverIssues/MochaIssues/issues/issue_701`は原文どおり`instanceof`を使います。
+RQ1はパターン単位で集計するため、性質の異なる2件が同じラベルに突き合わされることになります。
+
+対応表は旧プロジェクトの手動キュレーション由来であり、帰属を変えると16件という件数と
+二本柱の分母が動きます。現時点では帰属を変えず、食い違いの記録に留めます。
 
 ## 拡張性評価データ（残り81issue）
 

@@ -1,5 +1,22 @@
 [
   {
+    "id": "issue_11338",
+    "profile": "browser",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js がなく、v_*.html の inline workload が assign を定義する。HTML は ember_*.js を script タグで読まないため browser とした。",
+      "reach": "Node 24.15.0 の VM で before/after の HTML inline execute(f1, 10) を走らせ、各 workload が完了することを確認した。後段の mean 呼び出しは両側とも TypeError だが、assign はその前に実行される。",
+      "verdict": "inline assign に同じ 50 プロパティの obj1 を渡し、戻り値の 51 キーが before/after で一致した。workload の 1 引数入力で変数衝突の影響は観測されなかった。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_11338",
+      "pattern": "P1",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientIssues/EmberIssues/issues/issue_11338"
+    }
+  },
+  {
     "id": "issue_1222",
     "profile": "commonjs",
     "reach": "observable",
@@ -17,6 +34,176 @@
     }
   },
   {
+    "id": "issue_1223",
+    "profile": "commonjs",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js が exports.init / setupTest / test を持ち、underscore_*.js を require する。Node 組み込み機能だけで実行できる。",
+      "reach": "Node 24.15.0 で before/after の init・setupTest・test を実行し、workload の _.each(map, f) 1000 回を完了した。変換箇所へ probe 相当の callback 観測を行った。",
+      "verdict": "workload と同じ 100 プロパティの map を _.each に渡し、before/after とも 100 件を prop0 から prop99 の順で callback に渡した。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_1223",
+      "pattern": "P1",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientServerIssues/UnderscoreIssues/issues/issue_1223"
+    }
+  },
+  {
+    "id": "issue_136b",
+    "profile": "commonjs",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js が ejs_before_node / ejs_after_node を require する。Node 組み込み機能だけで実行できる。",
+      "reach": "Node 24.15.0 で before/after の test_case を実行し、ejs.render を workload の同じ入力で 500 回呼べることを確認した。",
+      "verdict": "workload と同じ '<li><a href=\"foo\"><% // double-slash comment %>foo</li>' を ejs.render に渡し、両側とも '<li><a href=\"foo\">foo</li>' を返した。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_136b",
+      "pattern": "P2",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientServerIssues/EjsIssues/issues/issue_136b"
+    }
+  },
+  {
+    "id": "issue_27a",
+    "profile": "commonjs",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js が chalk_before.js / chalk_after.js を require する。pnpm-lock.yaml の依存を setup で解決する。",
+      "reach": "Node 24.15.0 で実行時引数 --color を固定し、before/after の workload（各 80 回）を実行して単一引数の chalk 呼び出しが変換箇所へ入ることを確認した。",
+      "verdict": "workload と同じ underline('foo')・red('foo')・grey('foo') の出力を before/after で比較し、3 件すべて一致した。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_27a",
+      "pattern": "P10",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/serverIssues/ChalkIssues/issues/issue_27a"
+    }
+  },
+  {
+    "id": "issue_28",
+    "profile": "commonjs",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js が chalk_before/index.js / chalk_after/index.js を require する。pnpm-lock.yaml の依存を setup で解決する。",
+      "reach": "Node 24.15.0 で実行時引数 --color を固定し、before/after の workload（各 800 回）を実行して applyStyle の reduce/for loop を通過させた。",
+      "verdict": "workload と同じ 10 個の chalk 出力・色判定を before/after で比較し、ANSI 出力を含めて一致した。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_28",
+      "pattern": "P9",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/serverIssues/ChalkIssues/issues/issue_28"
+    }
+  },
+  {
+    "id": "issue_347_1",
+    "profile": "commonjs",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js が underscore.string_before.js / underscore.string_after.js を require する。Node 組み込み機能だけで実行できる。",
+      "reach": "Node 24.15.0 で before/after の workload（startsWith / endsWith を各 100001 回）を実行し、4 呼び出しが変換箇所へ到達することを確認した。",
+      "verdict": "workload と同じ 4 入力の戻り値を比較し、before/after とも [true, true, false, false] になった。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_347_1",
+      "pattern": "P3",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientServerIssues/Underscore.stringIssues/issues/issue_347_1"
+    }
+  },
+  {
+    "id": "issue_39",
+    "profile": "commonjs",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js が underscore_before.js / underscore_after.js を require する。Node 組み込み機能だけで実行できる。",
+      "reach": "Node 24.15.0 で before/after の test_case を実行し、workload の _.template を 1000 回呼んだ。template の生成結果を probe 相当の直接呼び出しで観測した。",
+      "verdict": "setup と同じ new Array(100).join(\" ' \") を template に渡して実行し、split().join() と replace() の生成結果が一致した。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_39",
+      "pattern": "P6",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientServerIssues/UnderscoreIssues/issues/issue_39"
+    }
+  },
+  {
+    "id": "issue_4359",
+    "profile": "browser",
+    "reach": "observable",
+    "verdict": "not_equal",
+    "why": {
+      "profile": "test_case_*.js がなく、v_*.html の inline workload が keys[i] の式を実行する。HTML は angular_*.js を読まないため browser とした。",
+      "reach": "Node 24.15.0 で before/after の HTML inline workload を execute(f1, 10) として実行した。probe 相当で f1 の 100000 回の式を観測できた。",
+      "verdict": "同じ 100000 個の keys で before の % 式は true が 50000 件、after の & 式は全件 0 になった。after は keys[i] & (1 === 0) と解釈されるため一致しない。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_4359",
+      "pattern": "P8",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientIssues/AngularIssues/issues/issue_4359"
+    }
+  },
+  {
+    "id": "issue_4457",
+    "profile": "browser",
+    "reach": "workload_executed",
+    "verdict": "inconclusive",
+    "why": {
+      "profile": "test_case_*.js がなく、v_*.html が angular_before/after.js と jQuery を script タグで読むため browser とした。",
+      "reach": "Node 24.15.0 の jsdom で jQuery を先に読み込み、before/after の HTML workload を実行した。10 回の execute で jQuery.html は各 10000 回、SUT の jqLite.empty は 0 回だったため変換箇所には到達しなかった。",
+      "verdict": "workload は両側とも完了したが、実行されたのは jQuery の angular.element(...).html('') で SUT の html→empty 変換箇所ではない。対象未到達のため verdict は inconclusive とした。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_4457",
+      "pattern": "P4",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientIssues/AngularIssues/issues/issue_4457"
+    }
+  },
+  {
+    "id": "issue_5457",
+    "profile": "browser",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js がなく、v_*.html が angular_*.js を読む browser ケースである。workload は HTML inline の shallowCopy を呼ぶ。",
+      "reach": "Node 24.15.0 の jsdom で before/after の inline controller を実行し、execute(f1, 10) の 50000 回ループを完了した。変換箇所は inline shallowCopy で probe 相当の出力を観測した。",
+      "verdict": "workload と同じ {$$some: true, $$: true} を shallowCopy に渡し、substr と charAt 2 回の両側で結果が空オブジェクトになった。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_5457",
+      "pattern": "P5",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientIssues/AngularIssues/issues/issue_5457"
+    }
+  },
+  {
+    "id": "issue_701",
+    "profile": "commonjs",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js が exports.init / setupTest / test を持つ。mocha_before/after は require されず、変換対象は test_case 本体に転記されている。",
+      "reach": "Node 24.15.0 で before/after の workload（3 つの判定を各 50000 回）を実行し、test_case 内の toString/instanceof 式を観測した。",
+      "verdict": "同じ Error オブジェクトについて workload の 3 判定を比較し、before/after とも [true, true, true] になった。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_701",
+      "pattern": "P7",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/serverIssues/MochaIssues/issues/issue_701"
+    }
+  },
+  {
     "id": "issue_7012",
     "profile": "browser",
     "reach": "observable",
@@ -31,6 +218,40 @@
       "pattern": "P1",
       "patternDefinition": "corpus/README.md",
       "upstream": "data/selakovic-2016-issues/clientIssues/AngularIssues/issues/issue_7012"
+    }
+  },
+  {
+    "id": "issue_7735",
+    "profile": "browser",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js がなく、v_*.html が angular_before/after.js を読むため browser とした。",
+      "reach": "Node 24.15.0 の jsdom で angular_before/after.js を読み込み、inline controller の angular.isArray workload（1000000 回ループを 10 回）をエラーなく実行した。",
+      "verdict": "workload と同じ配列で before の toString.call 判定と after の Array.isArray 判定を実行し、両側とも true になった。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_7735",
+      "pattern": "P7",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientIssues/AngularIssues/issues/issue_7735"
+    }
+  },
+  {
+    "id": "issue_7759_3",
+    "profile": "browser",
+    "reach": "observable",
+    "verdict": "equal",
+    "why": {
+      "profile": "test_case_*.js がなく、v_*.html の inline workload が shallowCopy を定義する。HTML は angular_*.js を script タグで読まないため browser とした。",
+      "reach": "Node 24.15.0 の VM で before/after の HTML inline execute(f1, 10) を走らせ、各 workload が完了することを確認した。変換箇所は HTML inline の shallowCopy で probe 相当の出力を観測した。",
+      "verdict": "workload と同じ 1000 プロパティの配列を shallowCopy に渡し、before/after とも 1000 キーを同じ順序でコピーした。"
+    },
+    "source": {
+      "fixture": "corpus/fixtures/issue_7759_3",
+      "pattern": "P1",
+      "patternDefinition": "corpus/README.md",
+      "upstream": "data/selakovic-2016-issues/clientIssues/AngularIssues/issues/issue_7759_3"
     }
   }
 ]

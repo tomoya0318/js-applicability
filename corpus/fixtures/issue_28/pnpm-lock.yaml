@@ -1,0 +1,72 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      ansi-styles:
+        specifier: 1.1.0
+        version: 1.1.0
+      escape-string-regexp:
+        specifier: 1.0.5
+        version: 1.0.5
+      has-ansi:
+        specifier: 0.1.0
+        version: 0.1.0
+      strip-ansi:
+        specifier: 0.3.0
+        version: 0.3.0
+      supports-color:
+        specifier: 0.2.0
+        version: 0.2.0
+
+packages:
+
+  ansi-regex@0.2.1:
+    resolution: {integrity: sha512-sGwIGMjhYdW26/IhwK2gkWWI8DRCVO6uj3hYgHT+zD+QL1pa37tM3ujhyfcJIYSbsxp7Gxhy7zrRW/1AHm4BmA==}
+    engines: {node: '>=0.10.0'}
+
+  ansi-styles@1.1.0:
+    resolution: {integrity: sha512-f2PKUkN5QngiSemowa6Mrk9MPCdtFiOSmibjZ+j1qhLGHHYsqZwmBMRF3IRMVXo8sybDqx2fJl2d/8OphBoWkA==}
+    engines: {node: '>=0.10.0'}
+
+  escape-string-regexp@1.0.5:
+    resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
+    engines: {node: '>=0.8.0'}
+
+  has-ansi@0.1.0:
+    resolution: {integrity: sha512-1YsTg1fk2/6JToQhtZkArMkurq8UoWU1Qe0aR3VUHjgij4nOylSWLWAtBXoZ4/dXOmugfLGm1c+QhuD0JyedFA==}
+    engines: {node: '>=0.10.0'}
+    hasBin: true
+
+  strip-ansi@0.3.0:
+    resolution: {integrity: sha512-DerhZL7j6i6/nEnVG0qViKXI0OKouvvpsAiaj7c+LfqZZZxdwZtv8+UiA/w4VUJpT8UzX0pR1dcHOii1GbmruQ==}
+    engines: {node: '>=0.10.0'}
+    hasBin: true
+
+  supports-color@0.2.0:
+    resolution: {integrity: sha512-tdCZ28MnM7k7cJDJc7Eq80A9CsRFAAOZUy41npOZCs++qSjfIy7o5Rh46CBk+Dk5FbKJ33X3Tqg4YrV07N5RaA==}
+    engines: {node: '>=0.10.0'}
+    hasBin: true
+
+snapshots:
+
+  ansi-regex@0.2.1: {}
+
+  ansi-styles@1.1.0: {}
+
+  escape-string-regexp@1.0.5: {}
+
+  has-ansi@0.1.0:
+    dependencies:
+      ansi-regex: 0.2.1
+
+  strip-ansi@0.3.0:
+    dependencies:
+      ansi-regex: 0.2.1
+
+  supports-color@0.2.0: {}
