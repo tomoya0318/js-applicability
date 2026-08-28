@@ -71,13 +71,45 @@ main 側のパスは `source.repo_root`、この worktree の workspace id は
 
 ## 撤収する
 
-`tmp/` は持ち帰らない。plan と review は足場である。
+`tmp/` は main やリモートへ持ち帰らないが、worktree を削除する前に chezmoi の共通履歴へ退避する。
 
-**残したいものが `tmp/` と worktree の外にあれば、削除の前に追跡下へ入れる。**
-コミットメッセージと追跡される文書に移し終えたかは人間が判断する。
+履歴の保存先は `$(chezmoi source-path)/history/<リポジトリ名>/<日時とブランチ名>/` とする。
+`tmp/` が存在する場合は、次のように worktree 側で保存する。
+
+    worktree_path="$(pwd)"
+    main_path="<main のパス>"
+    chezmoi_root="$(chezmoi source-path)"
+    repo_name="$(basename "$(git -C "$main_path" rev-parse --show-toplevel)")"
+    branch_name="$(git -C "$worktree_path" branch --show-current | tr '/' '-')"
+    timestamp="$(date +%Y%m%d-%H%M%S)"
+    archive_dir="$chezmoi_root/history/$repo_name/${timestamp}_${branch_name}"
+
+同じ保存先がすでに存在する場合は、上書きせずに停止してユーザーへ報告する。
+保存先を作成し、`.launch-*` を除外して `tmp/` の内容をコピーする。
+
+    if [ -d "$worktree_path/tmp" ]; then
+      if [ -e "$archive_dir" ]; then
+        echo "履歴の保存先がすでに存在します: $archive_dir" >&2
+        exit 1
+      fi
+      mkdir -p "$(dirname "$archive_dir")"
+      mkdir "$archive_dir"
+      if ! rsync -a --exclude='.launch-*' "$worktree_path/tmp/" "$archive_dir/"; then
+        echo "履歴の退避に失敗しました。worktree は削除しないでください" >&2
+        exit 1
+      fi
+    else
+      echo "tmp/ が存在しないため、履歴の退避はありません"
+    fi
+
+コピーが失敗した場合は、worktree を削除せずに停止する。
+コピーが成功したことを確認してから、保存先を報告する。
+`tmp/` が存在しない場合は履歴の退避を行わず、保存先が無いことを報告する。
+
+履歴は chezmoi の `history/` に保存し、main リポジトリへ追加したり、リモートへ push したりしない。
 
 削除は取り消しにくいので、実行前にユーザーへ確認する。
-worktree を消す前に main 側へ移動する。
+履歴の退避と保存先の確認が済んだ後、worktree を消す前に main 側へ移動する。
 
     herdr worktree remove --workspace <id>
     git branch -d <branch>
@@ -91,3 +123,4 @@ main の HEAD、削除した worktree とブランチを伝える。
 **push は local main の全体を publish するので、何が publish されたかを伝える。**
 着地させたブランチ以外のコミットが乗っていることがある。
 rebase したなら、その旨と DoD の再実行結果も伝える。
+履歴を退避したなら、その保存先も伝える。
