@@ -61,7 +61,7 @@ mise exec -- node --inspect scripts/prep.ts   # デバッグでフラグを渡�
 src/          純粋なロジック。副作用なし・パス知識なし
   types.ts      verdict / reach / status の唯一の定義
   io.ts         JSON の読み書き。件数不変と例外処理をここで強制
-  emic/         隔離実行と 4 オラクル観測 (共通基盤)
+  emic/         隔離実行と観測チャネル K1〜K8 (共通基盤)
   prep/ prune/ cond/
 scripts/      ステージの実行ファイル。4 本のみ
 corpus/       答え付きの合成テストケース

@@ -40,7 +40,7 @@
 src/        純粋なロジック。副作用なし・固定パスを知らない
   types.ts    verdict / reach / status の唯一の定義
   io.ts       JSON 読み書き。ステージ共通の不変条件をここで強制する
-  emic/       隔離実行と 4 オラクル観測 (prune と cond が内部で使う共通基盤)
+  emic/       隔離実行と観測チャネル K1〜K8 (prune と cond が内部で使う共通基盤)
   prep/ prune/ cond/
 scripts/    ステージの実行ファイル → scripts/AGENTS.md
 corpus/     答え付きの合成テストケース

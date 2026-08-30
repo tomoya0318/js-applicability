@@ -15,7 +15,7 @@ mise trust && mise run setup
 ## 理解ゲートのドメイン文言
 実装に入る前に、次を言語化すること。
 
-- この変更は EMIC の 4 オラクル観測のどの段階に影響するか（prep / equiv / prune / cond のどこか）
+- この変更は EMIC の観測チャネル (K1〜K8) のどの段階に影響するか（prep / equiv / prune / cond のどこか）
 - 対応外の入力を `unsupported` / `inconclusive` として返しているか。fallback を書いていないか
 - 実行環境（Node のバージョン）が結果に影響する変更か。影響するなら結果 JSON に記録されるか
 
