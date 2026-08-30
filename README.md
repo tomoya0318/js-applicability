@@ -5,9 +5,6 @@ JavaScript の (before, after) ペアから、**その変換を安全に適用�
 Selakovic & Pradel (ICSE 2016) が手動で付与し「自動チェックは今後の課題」とした 5 種類の前提条件
 (T / NF / P / TF / V) を、実行ベースの等価性確認によって自動で同定する。
 
-研究計画の正本は [`current.md`](current.md)。**設計判断はすべてそこが根拠**であり、
-本 README は実装の入口だけを説明する。
-
 ## パイプライン
 
 ステージ境界は論文が報告するファネルの段に一致させてある。
@@ -90,7 +87,6 @@ experiments/  使い捨ての実験。<日付>-<名前>/ に REPORT.md と結果
 
 | ファイル | 内容 |
 |---|---|
-| [`current.md`](current.md) | 研究計画の正本 |
 | [`AGENTS.md`](AGENTS.md) | 実装規律 (AI エージェント向け。`CLAUDE.md` はこれへのシンボリックリンク) |
 | [`research-handoff/`](research-handoff/) | 設計方針の引き継ぎと着手ブロッカー |
 

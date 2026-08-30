@@ -13,7 +13,7 @@ Selakovicデータセット（全97issue）を、役割の異なる二本柱に�
 | **正確性** | 10パターンに紐づく16issue | 生成手法（条件抽出）の正確さ | Selakovic Table 4の手付けラベル（T/NF/P/TF/V）に対するprecision / recall |
 | **拡張性** | 残り81issue（パターン外の個別最適化） | 手法が既知パターンの外へどこまで適用できるか | 段階別通過率・条件出力の有無・`inconclusive`率（主指標は未決定） |
 
-正確性の16issueは、Selakovicの手動パターン・条件ラベルを利用できる唯一の範囲であり、条件抽出の正誤評価に適しています（[current.md「Selakovic の手動前提条件」](../current.md#selakovic-の手動前提条件-本研究の背骨)）。
+正確性の16issueは、Selakovicの手動パターン・条件ラベルを利用できる唯一の範囲であり、条件抽出の正誤評価に適しています。
 拡張性の81issueは条件GTを持たないため、正誤ではなく適用可能性を測ります。
 二本柱の指標を同じ集計に混ぜません。
 
@@ -46,7 +46,7 @@ issueのIDは、分類表で使われている論理IDと、データセット�
 ### 各パターンの前提条件
 
 自動適用に必要な前提条件は、原論文の Table 4 が定めています。
-出典は `ai-research-workspace/raw/papers/selakovic2016perf.pdf` の Table 4 です。
+出典は Selakovic & Pradel, "Performance Issues and Optimizations in JavaScript: An Empirical Study" (ICSE 2016) の Table 4 です。
 条件抽出（RQ1）の正解ラベルはこの表です。
 
 T = Type check、NF = Native function is not overridden、P = Prototype is not overridden、
@@ -101,7 +101,7 @@ RQ1はパターン単位で集計するため、性質の異なる2件が同じ�
 
 - 条件GT（T/NF/P/TF/Vラベル）を持たないため、**正誤（precision / recall）は測りません**。
 - 測るのは適用可能性です: 前処理通過、等価判定通過、枝切り通過、条件抽出が出力を出せたか、`inconclusive`率。
-- 現行集計の下地: 97issue → 前処理通過79 → 等価判定通過65 → 枝切り通過45。パターン外81issueのうち枝切り通過は34です（[current.md「評価データの二本柱」](../current.md#評価データの二本柱)）。
+- 現行集計の下地: 97issue → 前処理通過79 → 等価判定通過65 → 枝切り通過45。パターン外81issueのうち枝切り通過は34です。
 - 失敗・非対応は隠さず、`unsupported` / `inconclusive`として段階別に計上します。実行プロファイル（CommonJS限定）が拡張性のカバレッジ上限を決めるため、非対応の内訳も報告します（[preprocessing-scope.md「実行環境の扱い」](../research-handoff/preprocessing-scope.md#実行環境の扱い)）。
 
 通過率の集計に加えて、81issueに対して次の2つの分析を行います。
@@ -138,7 +138,7 @@ issue数が少なく、パターンごとの件数にも偏りがあるため、
 ### 外部確認データ（当面見送り）
 
 Selakovic外の小規模OSSから、主対象と同じパターンに対応し、実行プロファイルを満たすケースを少数集める案はあります。
-ただし、[current.md「当面の作業順」](../current.md#当面の作業順)に従い、外部OSS適用（案A）は当面見送ります。
+ただし、外部OSS適用（案A）は当面見送ります。
 論文の質が要求すれば復活します。
 
 外部確認を実施しないため、2016年データと単一の収集方法に由来する経年および出所バイアスは、外部妥当性を示せない限界として記録します。
