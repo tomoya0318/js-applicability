@@ -13,3 +13,6 @@ export type Reach = (typeof REACHES)[number];
 
 export const VERDICTS = ["equal", "not_equal", "inconclusive"] as const;
 export type Verdict = (typeof VERDICTS)[number];
+
+export const PROFILES = ["commonjs", "browser"] as const;
+export type Profile = (typeof PROFILES)[number];
