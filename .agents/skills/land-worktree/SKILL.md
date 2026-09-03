@@ -133,11 +133,28 @@ main から起動する形なら、この連鎖を 1 か所で回せる。着地
 消えて困るものが `tmp/` に残っていないかを、退避の前に確認する。
 
 削除は取り消しにくいので、実行前にユーザーへ確認する。
-workspace id は同じ JSON の `.result.worktrees[] | select(.branch == $b) | .open_workspace_id`。
 
-    herdr worktree remove --workspace <id>
+    git worktree remove --force "$worktree_path"
     git branch -d <branch>
     git push origin --delete <branch>    # origin にもある場合だけ
+    herdr workspace close <id>
+
+workspace id は同じ JSON の `.result.worktrees[] | select(.branch == $b) | .open_workspace_id`。
+
+**`--force` を使う。** このリポジトリは `data/` を submodule に持つので、
+`herdr worktree remove` も素の `git worktree remove` も次の理由で拒否する。
+
+    fatal: working trees containing submodules cannot be moved or removed
+
+判定は index の gitlink があるかどうかで決まり、submodule が初期化されているかは見ていない。
+したがって `mise run setup` で submodule を入れなくても同じエラーが出る。
+
+**`submodule deinit` を worktree で実行しない。** `.git/config` は worktree 間で共有されるので、
+main 側の登録まで外れる (`git submodule status` の先頭が `-` になる)。
+それでも `remove` は通らないので、試す意味がない。
+踏んだ場合は main で `git submodule update --init` で戻す。ファイルは消えず、登録だけが外れる。
+
+`herdr worktree remove` を使わないので、workspace は `herdr workspace close` で別に閉じる。
 
 `-D` を使わない。`-d` が未マージを拒否するので安全弁になる。
 
