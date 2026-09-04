@@ -15,7 +15,11 @@
         "v_before.html",
         "v_after.html"
       ],
-      "note": "v_*.html が参照する ../../js/execute.js と CDN 上の jstat / jQuery は複製していない。いずれも所要時間の測定と結果送信のためのもので、EMIC の実行経路に入らない。"
+      "note": "v_*.html が参照する ../../js/execute.js と CDN 上の jstat / jQuery は複製していない。いずれも所要時間の測定と結果送信のためのもので、EMIC の実行経路に入らない。",
+      "target": {
+        "before": "v_before.html",
+        "after": "v_after.html"
+      }
     },
     {
       "id": "issue_7759_3",
@@ -28,7 +32,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "v_*.html の inline workload が shallowCopy を持つ。外部の execute.js / jstat / jQuery は複製していない。"
+      "note": "v_*.html の inline workload が shallowCopy を持つ。外部の execute.js / jstat / jQuery は複製していない。",
+      "target": {
+        "before": "v_before.html",
+        "after": "v_after.html"
+      }
     },
     {
       "id": "issue_11338",
@@ -41,7 +49,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "v_*.html の inline workload が assign を持つ。外部の execute.js / jstat / jQuery は複製していない。"
+      "note": "v_*.html の inline workload が assign を持つ。外部の execute.js / jstat / jQuery は複製していない。",
+      "target": {
+        "before": "v_before.html",
+        "after": "v_after.html"
+      }
     },
     {
       "id": "issue_1222",
@@ -56,7 +68,11 @@
         "v_before.html",
         "v_after.html"
       ],
-      "note": "v_*.html が参照する ../../js/execute.js と CDN 上の jstat / jQuery は複製していない。いずれも所要時間の測定と結果送信のためのもので、EMIC の実行経路に入らない。"
+      "note": "v_*.html が参照する ../../js/execute.js と CDN 上の jstat / jQuery は複製していない。いずれも所要時間の測定と結果送信のためのもので、EMIC の実行経路に入らない。",
+      "target": {
+        "before": "underscore_before.js",
+        "after": "underscore_after.js"
+      }
     },
     {
       "id": "issue_1223",
@@ -71,7 +87,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "v_*.html が参照する execute.js / jstat / jQuery は複製していない。Node workload は test_case_*.js で完結する。"
+      "note": "v_*.html が参照する execute.js / jstat / jQuery は複製していない。Node workload は test_case_*.js で完結する。",
+      "target": {
+        "before": "underscore_before.js",
+        "after": "underscore_after.js"
+      }
     },
     {
       "id": "issue_1224",
@@ -86,7 +106,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "v_*.html が参照する execute.js / jstat / jQuery は複製していない。Node workload は test_case_*.js で完結する。"
+      "note": "v_*.html が参照する execute.js / jstat / jQuery は複製していない。Node workload は test_case_*.js で完結する。",
+      "target": {
+        "before": "underscore_before.js",
+        "after": "underscore_after.js"
+      }
     },
     {
       "id": "issue_136b",
@@ -127,7 +151,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "ejs_before_node/ と ejs_after_node/ を含む。node_modules/ は複製していない。"
+      "note": "ejs_before_node/ と ejs_after_node/ を含む。node_modules/ は複製していない。",
+      "target": {
+        "before": "ejs_before_node/lib/ejs.js",
+        "after": "ejs_after_node/lib/ejs.js"
+      }
     },
     {
       "id": "issue_347_1",
@@ -142,7 +170,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "v_*.html が参照する execute.js / jstat / jQuery は複製していない。Node workload は test_case_*.js で完結する。"
+      "note": "v_*.html が参照する execute.js / jstat / jQuery は複製していない。Node workload は test_case_*.js で完結する。",
+      "target": {
+        "before": "underscore.string_before.js",
+        "after": "underscore.string_after.js"
+      }
     },
     {
       "id": "issue_4457",
@@ -155,7 +187,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "jQuery / execute.js / jstat は外部参照のため複製していない。workload は jQuery に束縛された angular.element を使う。"
+      "note": "jQuery / execute.js / jstat は外部参照のため複製していない。workload は jQuery に束縛された angular.element を使う。",
+      "target": {
+        "before": "angular_before.js",
+        "after": "angular_after.js"
+      }
     },
     {
       "id": "issue_5457",
@@ -168,7 +204,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "jQuery / execute.js / jstat は外部参照のため複製していない。workload は HTML inline の shallowCopy を使う。"
+      "note": "jQuery / execute.js / jstat は外部参照のため複製していない。workload は HTML inline の shallowCopy を使う。",
+      "target": {
+        "before": "v_before.html",
+        "after": "v_after.html"
+      }
     },
     {
       "id": "issue_39",
@@ -183,7 +223,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "v_*.html が参照する execute.js / jstat / jQuery は複製していない。Node workload は test_case_*.js で完結する。"
+      "note": "v_*.html が参照する execute.js / jstat / jQuery は複製していない。Node workload は test_case_*.js で完結する。",
+      "target": {
+        "before": "underscore_before.js",
+        "after": "underscore_after.js"
+      }
     },
     {
       "id": "issue_7735",
@@ -196,7 +240,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "jQuery / execute.js / jstat は外部参照のため複製していない。"
+      "note": "jQuery / execute.js / jstat は外部参照のため複製していない。",
+      "target": {
+        "before": "angular_before.js",
+        "after": "angular_after.js"
+      }
     },
     {
       "id": "issue_701",
@@ -361,7 +409,11 @@
         "test_case_after.js",
         "test_case_before.js"
       ],
-      "note": "mocha_before/ と mocha_after/ を含む。変換対象と workload は test_case_*.js に転記されている。node_modules/ は複製していない。"
+      "note": "mocha_before/ と mocha_after/ を含む。変換対象と workload は test_case_*.js に転記されている。node_modules/ は複製していない。",
+      "target": {
+        "before": "test_case_before.js",
+        "after": "test_case_after.js"
+      }
     },
     {
       "id": "issue_4359",
@@ -374,7 +426,11 @@
         "v_after.html",
         "v_before.html"
       ],
-      "note": "angular.js~ は壊れた編集バックアップのため除外。v_*.html が参照する execute.js / jstat / jQuery は複製していない。"
+      "note": "angular.js~ は壊れた編集バックアップのため除外。v_*.html が参照する execute.js / jstat / jQuery は複製していない。",
+      "target": {
+        "before": "v_before.html",
+        "after": "v_after.html"
+      }
     },
     {
       "id": "issue_28",
@@ -409,7 +465,11 @@
         "test_case_after.js",
         "test_case_before.js"
       ],
-      "note": "chalk_before/ と chalk_after/、package.json、pnpm-lock.yaml を含む。node_modules/ は複製していない。"
+      "note": "chalk_before/ と chalk_after/、package.json、pnpm-lock.yaml を含む。node_modules/ は複製していない。",
+      "target": {
+        "before": "chalk_before/index.js",
+        "after": "chalk_after/index.js"
+      }
     },
     {
       "id": "issue_27a",
@@ -424,7 +484,11 @@
         "test_case_after.js",
         "test_case_before.js"
       ],
-      "note": "chalk_before.js / chalk_after.js、package.json、pnpm-lock.yaml を含む。node_modules/ は複製していない。"
+      "note": "chalk_before.js / chalk_after.js、package.json、pnpm-lock.yaml を含む。node_modules/ は複製していない。",
+      "target": {
+        "before": "chalk_before.js",
+        "after": "chalk_after.js"
+      }
     }
   ]
 }
