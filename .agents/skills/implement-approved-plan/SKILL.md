@@ -92,7 +92,27 @@ main から呼ぶと並行レーンの codex タブが main 側に溜まって�
 `.claude/impl-workflow.md` の DoD コマンドを、変更範囲に応じて自分で実行する。
 codex の報告を信用して省かない。
 
-## 5. コミットする
+## 5. レビューを通す
+
+**必須である。コミットの前に通す。**
+コミット本文が `要件` の台帳になるので、`要件` の誤りはここで直してから本文に入れる。
+後ろに置くと、誤った要件のほうが台帳に残る。
+
+[references/review-prompt-skeleton.md](references/review-prompt-skeleton.md) の `<...>` を埋め、
+この worktree の `tmp/<NNNN_name>/review-prompt.md` へ書き出す。骨組みから項目を減らさない。
+
+`run-codex-tab` skill を invoke する。`task: review`、`model` と `effort` は手順 3 と同じ。
+`name: review-<name>`、`result_file` は `tmp/<NNNN_name>/review-result-<name>.md`。
+指摘の正本は `tmp/<NNNN_name>/review.md` であって、`result_file` はその要約である。
+
+**実装した tab を使い回さない。** 同じ codex に見せると、自分の実装を弁護する。
+
+指摘の `分類` が `要件誤り` のものは、コードではなく `要件` を直す対象である。
+`前提` のとおり、**止まって報告し、承認を得てから直す。** 黙って直さない。
+
+`事前検出` の列は着地時に使うので、埋まっていなければ codex に埋めさせる。
+
+## 6. コミットする
 
 コミットは 1 つ。plan が単位そのものなので切り分けない。
 
@@ -102,7 +122,7 @@ codex の報告を信用して省かない。
 コード側で `要件` と食い違う箇所があれば、コミット前にユーザーへ伝える。
 **plan を書き換えて辻褄を合わせない。**
 
-## 6. 着地は main から
+## 7. 着地は main から
 
 `/land-worktree` は main 側で起動する。worktree からは呼ばない。
 tab はコミットまで通ってからまとめて閉じる。
