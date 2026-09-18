@@ -7,7 +7,8 @@ argument-hint: /open-worktree <ブランチ名> <tmp/NNNN_name>
 
 # worktree を開いて実装を渡す
 
-**main 側で使う。** 計画は main で承認済みなので、worktree では書き直させない。
+**main 側で使う。** 計画は main で書いて承認を得る。並行レーンの作業定義を main に
+並べないと、共有面の取り合いが見えないためである。
 
 `/start-implementation` を新 workspace で呼ばない。あの skill は plan を書く手順を含み、
 読ませると承認済みの要件と別版ができる。
@@ -23,7 +24,8 @@ worktree からは main を読ませない。
 dig で決めたことを plan に反映し忘れた、という失敗をここで検出する。
 main を読めるようにすると、その欠落が見えなくなって実装だけが進む。
 
-足りないと分かったら、**main で plan を直してコピーし直す。** worktree 側で埋めない。
+足りないと分かったら、**worktree 側が止まって報告する。** 承認を得てから worktree で直す。
+着地時に worktree の `tmp/<NNNN_name>/` が main を上書きするので、直しに戻る必要はない。
 
 ## 中止する条件
 

@@ -87,50 +87,41 @@ main から起動する形なら、この連鎖を 1 か所で回せる。着地
 
     git push origin main
 
-## 撤収する
+## 作業ディレクトリを main へ戻す
 
-`tmp/` は main やリモートへ持ち帰らないが、worktree を削除する前に chezmoi の共通履歴へ退避する。
-退避するのは、`/open-worktree` が複製した作業ディレクトリと、実装中に生まれた記録
-(`impl-prompt-*.md` / `review.md` / `impl-result-*.md`) である。
+worktree を削除する前に、`tmp/<NNNN_name>/` を main の `tmp/done/` へ移す。
+**worktree 側が正本である。** 実装中に plan を直すことがあり、記録
+(`impl-prompt-*.md` / `review.md` / `impl-result-*.md`) も worktree にしかない。
+
 `tmp/dig/` の議事録は main にしかないので、ここでは動かさない。
 
-履歴の保存先は `$(chezmoi source-path)/history/<リポジトリ名>/<日時とブランチ名>/` とする。
+    work_dir="$(ls "$worktree_path/tmp" | head -1)"   # <NNNN_name>
+    dest="$(git rev-parse --show-toplevel)/tmp/done/$work_dir"
 
-    chezmoi_root="$(chezmoi source-path)"
-    repo_name="$(basename "$(git rev-parse --show-toplevel)")"
-    branch_name="$(echo "<branch>" | tr '/' '-')"
-    timestamp="$(date +%Y%m%d-%H%M%S)"
-    archive_dir="$chezmoi_root/history/$repo_name/${timestamp}_${branch_name}"
+`<NNNN_name>` が 1 つに定まらなければ、実行せずユーザーに訊く。推測で移さない。
 
-同じ保存先がすでに存在する場合は、上書きせずに停止してユーザーへ報告する。
-保存先を作成し、`.launch-*` を除外して `tmp/` の内容をコピーする。
-
-`/open-worktree` が作業ディレクトリを worktree へ複製しているので、
-この退避だけで main 側の控えも取れる。二重にコピーしない。
-計画を直したら main で直してコピーし直す運用なので、worktree 側が最新である。
-
-    if [ -d "$worktree_path/tmp" ]; then
-      if [ -e "$archive_dir" ]; then
-        echo "履歴の保存先がすでに存在します: $archive_dir" >&2
-        exit 1
-      fi
-      mkdir -p "$(dirname "$archive_dir")"
-      mkdir "$archive_dir"
-      if ! rsync -a --exclude='.launch-*' "$worktree_path/tmp/" "$archive_dir/"; then
-        echo "履歴の退避に失敗しました。worktree は削除しないでください" >&2
-        exit 1
-      fi
-    else
-      echo "tmp/ が存在しないため、履歴の退避はありません"
+    if [ -e "$dest" ]; then
+      echo "移動先がすでに存在します: $dest" >&2
+      exit 1
     fi
+    mkdir -p "$(dirname "$dest")"
+    if ! rsync -a --exclude='.launch-*' "$worktree_path/tmp/$work_dir/" "$dest/"; then
+      echo "移動に失敗しました。worktree は削除しないでください" >&2
+      exit 1
+    fi
+    rm -rf "$(git rev-parse --show-toplevel)/tmp/$work_dir"
 
-コピーが失敗した場合は、worktree を削除せずに停止する。
-コピーが成功したことを確認してから、保存先を報告する。
-`tmp/` が存在しない場合は履歴の退避を行わず、保存先が無いことを報告する。
+同名がすでに `done/` にある場合は、上書きせず停止して報告する。
+コピーが失敗した場合も、worktree を削除せずに停止する。
 
-履歴は chezmoi の `history/` に保存し、main リポジトリへ追加したり、リモートへ push したりしない。
-**`history/` は chezmoi 側で追跡されないローカル限りの控えである。**
-消えて困るものが `tmp/` に残っていないかを、退避の前に確認する。
+**`done/` へ移すことが、生きている計画との区別になる。**
+以前は main の `tmp/<NNNN_name>/` を消していた。残すと「これはまだ生きている計画か」を
+判断できなくなるからだが、場所で決まるなら判断が要らない。
+
+`tmp/` は追跡しない。**`done/` の中身は、次の振り返りまでしか存在しない。**
+マシンが変われば消える。消えて困るものが残っていないかは、振り返りで確かめる。
+
+## worktree を削除する
 
 削除は取り消しにくいので、実行前にユーザーへ確認する。
 
@@ -158,40 +149,18 @@ main 側の登録まで外れる (`git submodule status` の先頭が `-` にな
 
 `-D` を使わない。`-d` が未マージを拒否するので安全弁になる。
 
-## main の作業ディレクトリを片づける
+## 振り返りの時期を知らせる
 
-worktree を消したら、main の `tmp/<NNNN_name>/` も消す。
-残すと、次に入る自分が「これはまだ生きている計画か」を判断できない。
+行き場の確認は、着地のたびではなく `tmp/done/` が溜まったときにまとめて行う。
+1 本ごとに 7 行の表を確認しても、直後は「行き場なし」が少なく、判断が形骸化する。
 
-作業ディレクトリの名前は、退避した worktree の `tmp/` の中身から引く。
-`/open-worktree` が複製した `<NNNN_name>/` がそこにある。
-見つからなければユーザーに訊く。推測で消さない。
+    count="$(ls -1 "$(git rev-parse --show-toplevel)/tmp/done" 2>/dev/null | wc -l | tr -d ' ')"
 
-**消すのは `tmp/<NNNN_name>/` だけである。**
-`tmp/dig/` の議事録と作業定義は main に残す。dig は main で行うので、あそこが唯一の置き場になる。
+**3 本以上なら、`/skill-retro` を実行するようユーザーへ伝える。** 自分で実行しない。
+着地とは別の作業であり、承認が要る。
 
-### 消す前に、行き場を確かめて提案する
-
-作業ディレクトリの中身のうち、コミットにもコードにも残らないものがある。
-**消す前に一覧で提案し、ユーザーの承認を得る。承認が無ければ消さない。**
-
-| 中身 | 既に残る場所 | 残っていないときの行き場 |
-|---|---|---|
-| `plan.md` の `概要` `要件` `方針` `リスク` | コミット本文 (規約) | コミットが規約どおりか確かめる |
-| `impl-result` の「満たせなかった要件」 | どこにもない | 次の plan、または `research-handoff/blocking-decisions.md` |
-| `impl-result` の「前提として置いたこと」 | どこにもない | `// TODO(未決定)` かコミット本文 |
-| `impl-result` の「`TODO(未決定)` を残した箇所」 | コード | `grep -rn "TODO(未決定)" src scripts` で実在を確かめる |
-| `review.md` の却下した指摘 | どこにもない | `// TODO(未決定)` か `blocking-decisions.md` |
-| 撤回しにくく長期的な影響を持つ設計判断 | — | `adr-writing` で ADR |
-| 計画を変えた理由 | — | main の `tmp/dig/` |
-
-`impl-prompt-*.md` は plan からの派生物なので、行き場を要求しない。
-
-**「行き場なし」を黙って消さない。** 却下した指摘や置いた前提が消えると、
-次に同じ論点へ当たったときに、一度考えたことをもう一度考える。
-
-退避はしてある (`history/`) が、あれは chezmoi 側で追跡されないローカル限りの控えであり、
-永続化ではない。行き場の提案を省く理由にはならない。
+閾値は 3 本にハードコードしてある。少ないと毎回に近づいて儀式になり、
+多いと材料が古びて読み直しのコストが上がる。回してから決め直す。
 
 ## 報告
 
@@ -200,4 +169,5 @@ main の HEAD、削除した worktree とブランチを伝える。
 着地させたブランチ以外のコミットが乗っていることがある。
 rebase したなら、その旨と DoD の再実行結果も伝える。
 履歴を退避したなら、その保存先も伝える。
-消した main の作業ディレクトリと、行き場を移したものを伝える。
+`tmp/done/` へ移した作業ディレクトリと、`done/` の現在の本数を伝える。
+3 本以上なら `/skill-retro` を促す。
