@@ -31,6 +31,8 @@ main を読めるようにすると、その欠落が見えなくなって実装
 
 - `tmp/<NNNN_name>/plan.md` が無い、またはユーザーの承認を得ていない → main での `/start-implementation` を促す
 - main の作業ツリーが clean でない → `/commit` を案内する。追跡外の `tmp/` は汚れに数えない
+- `.claude/impl-workflow.md` が無い → `/setup-impl-workflow` を案内する。手順 2 の対象が無いまま進むと、
+  セットアップを飛ばしたことに気づかない
 
 ## ブランチ名
 
