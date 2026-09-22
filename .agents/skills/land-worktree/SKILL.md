@@ -95,10 +95,16 @@ worktree を削除する前に、`tmp/<NNNN_name>/` を main の `tmp/done/` へ
 
 `tmp/dig/` の議事録は main にしかないので、ここでは動かさない。
 
-    work_dir="$(ls "$worktree_path/tmp" | head -1)"   # <NNNN_name>
-    dest="$(git rev-parse --show-toplevel)/tmp/done/$work_dir"
+**`<NNNN_name>` が 1 つに定まらなければ、実行せずユーザーに訊く。推測で移さない。**
+`head -1` で先頭を取ると、2 つあるときに黙って片方を選ぶ。
 
-`<NNNN_name>` が 1 つに定まらなければ、実行せずユーザーに訊く。推測で移さない。
+    if [ "$(ls -1 "$worktree_path/tmp" | wc -l)" -ne 1 ]; then
+      echo "tmp/ 直下が 1 つに定まりません:" >&2
+      ls -1 "$worktree_path/tmp" >&2
+      exit 1
+    fi
+    work_dir="$(ls -1 "$worktree_path/tmp")"   # <NNNN_name>
+    dest="$(git rev-parse --show-toplevel)/tmp/done/$work_dir"
 
     if [ -e "$dest" ]; then
       echo "移動先がすでに存在します: $dest" >&2
